@@ -83,12 +83,40 @@ const data = [
   },
 ];
 
+const parisCenter = {
+  lat: 48.853,
+  lng: 2.3499,
+};
+
 const listDrugstores = () => {
+
+  // Calcul des distances de chaque pharmacie par rapport à parisCenter
+  data.forEach((drugstore) => {
+    drugstore.distance = drugstore.calculateDistance(parisCenter);
+  });
+
+  // Tri du tableau en fonction de la distance
+  data.sort((a, b) => a.distance - b.distance);
+
+  data.forEach((drugstore) => {
+    delete drugstore.distance;
+  });
+  
   return data.map((e) => new DrugstoreModel(e));
 };
 
 const deleteDrugstore = (drugstoreId) => {
-  // TODO
+  // Recherche de l'index de la pharmacie à supprimer dans le tableau
+  const index = data.findIndex((drugstore) => drugstore.id === drugstoreId);
+
+  // Vérification si la pharmacie à supprimer existe dans le tableau
+  if (index === -1) {
+    return data; // Retourne le tableau inchangé
+  }
+
+  // Suppression de la pharmacie correspondante à l'ID fourni
+  data.splice(index, 1);
+  return data; // Retourne le tableau modifié
 };
 
 module.exports = {

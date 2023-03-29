@@ -1,0 +1,10 @@
+ouvrir un terminal à la racine du projet
+cd backend
+npm install
+node main.js ou npm start
+
+autre terminal à la racine du projet
+cd frontend
+npm install
+npm start
+http://localhost:3310/ dans un navigateur

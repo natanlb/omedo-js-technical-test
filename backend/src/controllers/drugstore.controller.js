@@ -5,7 +5,8 @@ const listDrugstore = (req, res) => {
 };
 
 const deleteDrugstore = (req, res) => {
-  // TODO
+  const id = req.params.id; // Récupérer l'id de la pharmacie à supprimer depuis les paramètres de la requête
+  res.send(service.deleteDrugstore(id)); // Envoyer une réponse HTTP pour confirmer la suppression
 };
 
 module.exports = {

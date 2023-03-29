@@ -1,22 +1,28 @@
-import logo from './logo.svg';
+import React, { useEffect, useState } from 'react';
 import './App.css';
 
 function App() {
+  const [drugstores, setDrugstores] = useState([]);
+
+  useEffect(() => {
+    fetch('/drugstore')
+      .then(response => response.json())
+      .then(data => setDrugstores(data))
+      .catch(error => console.log(error));
+  }, []);
+
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <h1>Liste de pharmacies</h1>
+        <ul>
+          {drugstores.map(drugstore => (
+            <li key={drugstore.id}>
+              <h2>{drugstore.name}</h2>
+              <p>{drugstore.address}</p>
+            </li>
+          ))}
+        </ul>
       </header>
     </div>
   );
